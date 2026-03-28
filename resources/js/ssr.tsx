@@ -9,7 +9,7 @@ export default function render(page: any) {
         resolve: (name) =>
             resolvePageComponent(
                 `./Pages/${name}.tsx`,
-                import.meta.glob('./Pages/**/*.tsx'),
+                import.meta.glob('./Pages/**/*.tsx') as Record<string, () => Promise<any>>,
             ),
         setup: ({ App, props }) => <App {...props} />,
     });
