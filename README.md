@@ -12,6 +12,9 @@
   <strong>AI-Powered Multi-Modal Travel Booking Platform for Southeast Asia</strong>
 </p>
 
+<img width="1696" height="1259" alt="CleanShot 2026-03-28 at 3  40 45" src="https://github.com/user-attachments/assets/196480b4-78a2-4c33-a4d3-7f11a2fa1660" />
+
+
 <p align="center">
   Compare and book flights, trains, buses, and ferries across Southeast Asia — all in one search.<br />
   Built as a modular monolith with Laravel 13, React 19, Inertia.js 3, and Tailwind CSS 4.
