@@ -39,6 +39,9 @@ Route::get('/destinations/{slug}', [DestinationController::class, 'show'])->name
 Route::get('/blog', [BlogController::class, 'index'])->name('blog');
 Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
 
+// Contact
+Route::get('/contact', fn () => \Inertia\Inertia::render('Public/Contact'))->name('contact');
+
 /*
 |--------------------------------------------------------------------------
 | Auth Routes

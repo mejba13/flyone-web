@@ -25,10 +25,10 @@ interface Props {
 }
 
 const transportModes = [
-    { icon: Plane, label: 'Flights', mode: 'flight', desc: 'Compare 100+ airlines', image: 'https://images.unsplash.com/photo-1529074963764-98f45c47344b?w=600&h=450&fit=crop&q=80', accent: 'from-violet-900/40 to-indigo-900/60' },
-    { icon: Train, label: 'Trains', mode: 'train', desc: 'Scenic rail journeys', image: 'https://images.unsplash.com/photo-1532105956626-9569c03602f6?w=600&h=450&fit=crop&q=80', accent: 'from-emerald-900/40 to-teal-900/60' },
-    { icon: Bus, label: 'Buses', mode: 'bus', desc: 'Budget-friendly routes', image: 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=600&h=450&fit=crop&q=80', accent: 'from-amber-900/40 to-orange-900/60' },
-    { icon: Ship, label: 'Ferries', mode: 'ferry', desc: 'Island-hop with ease', image: 'https://images.unsplash.com/photo-1605281317010-fe5ffe798166?w=600&h=450&fit=crop&q=80', accent: 'from-sky-900/40 to-blue-900/60' },
+    { icon: Plane, label: 'Flights', mode: 'flight', desc: 'Compare 100+ airlines', image: 'https://images.unsplash.com/photo-1529074963764-98f45c47344b?w=600&h=450&fit=crop&q=80', accent: 'from-violet-900/40 to-indigo-900/60', tabActive: 'bg-violet-500/15 text-violet-300 border-violet-400/25', iconColor: 'text-violet-400' },
+    { icon: Train, label: 'Trains', mode: 'train', desc: 'Scenic rail journeys', image: 'https://images.unsplash.com/photo-1532105956626-9569c03602f6?w=600&h=450&fit=crop&q=80', accent: 'from-emerald-900/40 to-teal-900/60', tabActive: 'bg-emerald-500/15 text-emerald-300 border-emerald-400/25', iconColor: 'text-emerald-400' },
+    { icon: Bus, label: 'Buses', mode: 'bus', desc: 'Budget-friendly routes', image: 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=600&h=450&fit=crop&q=80', accent: 'from-amber-900/40 to-orange-900/60', tabActive: 'bg-amber-500/15 text-amber-300 border-amber-400/25', iconColor: 'text-amber-400' },
+    { icon: Ship, label: 'Ferries', mode: 'ferry', desc: 'Island-hop with ease', image: 'https://images.unsplash.com/photo-1605281317010-fe5ffe798166?w=600&h=450&fit=crop&q=80', accent: 'from-sky-900/40 to-blue-900/60', tabActive: 'bg-sky-500/15 text-sky-300 border-sky-400/25', iconColor: 'text-sky-400' },
 ];
 
 const trustSignals = [
@@ -241,19 +241,19 @@ export default function Landing({ trending, featured, flashDeals, stats }: Props
                                                 <span className="text-[10px] text-white/20 font-medium tracking-widest uppercase">Search</span>
                                             </div>
 
-                                            {/* Transport tabs — pill style */}
+                                            {/* Transport tabs — colorful pills */}
                                             <div className="flex gap-1.5 mb-6">
                                                 {transportModes.map((mode) => (
                                                     <button
                                                         key={mode.mode}
                                                         onClick={() => setFilters({ mode: mode.mode })}
-                                                        className={`flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl text-[12px] font-medium transition-all duration-300 border ${
+                                                        className={`flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl text-[12px] font-semibold transition-all duration-300 border ${
                                                             filters.mode === mode.mode
-                                                                ? 'bg-primary-500/15 text-primary-300 border-primary-500/25 shadow-[0_0_12px_rgba(124,58,237,0.15)]'
+                                                                ? mode.tabActive
                                                                 : 'bg-white/[0.03] text-white/25 border-white/[0.04] hover:text-white/50 hover:border-white/[0.08]'
                                                         }`}
                                                     >
-                                                        <mode.icon className="h-3.5 w-3.5" />
+                                                        <mode.icon className={`h-3.5 w-3.5 ${filters.mode !== mode.mode ? mode.iconColor : ''}`} />
                                                         <span className="hidden sm:inline">{mode.label}</span>
                                                     </button>
                                                 ))}

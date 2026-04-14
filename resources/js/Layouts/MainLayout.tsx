@@ -17,9 +17,9 @@ export default function MainLayout({ children, title, showFooter = true }: MainL
     return (
         <>
             {title && <Head title={title} />}
-            <div className="min-h-screen flex flex-col bg-soft">
+            <div className="min-h-screen flex flex-col bg-[#08080e]">
                 <Navbar />
-                <main className="flex-1">
+                <main className="flex-1 pt-[72px]">
                     {children}
                 </main>
                 {showFooter && <Footer />}

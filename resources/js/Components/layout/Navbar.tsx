@@ -9,9 +9,23 @@ import {
 } from '@/Components/ui/dropdown-menu';
 import { getInitials } from '@/Lib/utils';
 import {
-    Menu, X, Bell, MessageCircle,
-    LayoutDashboard, User, Gift, LogOut,
+    Menu, X, Bell, Sparkles,
+    LayoutDashboard, User, Gift, LogOut, Map, Plane,
 } from 'lucide-react';
+
+const navLinks = [
+    { href: '/search', label: 'Flights' },
+    { href: '/destinations', label: 'Destinations' },
+    { href: '/blog', label: 'Blog' },
+    { href: '/contact', label: 'Contact' },
+];
+
+const mobileLinks = [
+    { href: '/search', label: 'Search Flights', icon: Plane },
+    { href: '/destinations', label: 'Destinations', icon: Map },
+    { href: '/blog', label: 'Travel Blog' },
+    { href: '/contact', label: 'Contact Us' },
+];
 
 export function Navbar() {
     const { user, isAuthenticated } = useAuth();
@@ -26,6 +40,8 @@ export function Navbar() {
         handleScroll();
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
+
+    const isActive = (href: string) => page.url.startsWith(href);
 
     return (
         <header
@@ -71,18 +87,18 @@ export function Navbar() {
                             </div>
                         </Link>
 
+                        {/* Primary nav */}
                         <nav className="hidden md:flex items-center">
                             <div className="flex items-center gap-0.5 bg-white/[0.03] border border-white/[0.05] rounded-full px-1.5 py-1">
-                                {[
-                                    { href: '/search', label: 'Search' },
-                                    { href: '/destinations', label: 'Destinations' },
-                                    { href: '/blog', label: 'Blog' },
-                                    { href: '/chat', label: 'AI Chat' },
-                                ].map((link) => (
+                                {navLinks.map((link) => (
                                     <Link
                                         key={link.href}
                                         href={link.href}
-                                        className="px-4 py-1.5 text-[14px] font-medium text-white/50 hover:text-white hover:bg-white/[0.07] rounded-full transition-all duration-300"
+                                        className={`px-4 py-1.5 text-[14px] font-medium rounded-full transition-all duration-300 ${
+                                            isActive(link.href)
+                                                ? 'bg-white/[0.08] text-white'
+                                                : 'text-white/50 hover:text-white hover:bg-white/[0.07]'
+                                        }`}
                                     >
                                         {link.label}
                                     </Link>
@@ -92,15 +108,26 @@ export function Navbar() {
                     </div>
 
                     {/* Right side */}
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-2">
                         {isAuthenticated ? (
                             <>
+                                {/* AI Chat button */}
+                                <Link
+                                    href="/chat"
+                                    className={`hidden sm:flex items-center gap-2 h-9 px-4 rounded-full text-[13px] font-medium transition-all duration-300 ${
+                                        isActive('/chat')
+                                            ? 'bg-primary-500/15 text-primary-300 border border-primary-500/20'
+                                            : 'text-white/40 hover:text-white/70 hover:bg-white/[0.06]'
+                                    }`}
+                                >
+                                    <Sparkles className="h-3.5 w-3.5" />
+                                    AI Chat
+                                </Link>
+
                                 <Link href="/dashboard/notifications" className="relative p-2.5 text-white/40 hover:text-white hover:bg-white/[0.06] rounded-xl transition-all duration-300">
                                     <Bell className="h-[18px] w-[18px]" />
                                 </Link>
-                                <Link href="/chat" className="p-2.5 text-white/40 hover:text-white hover:bg-white/[0.06] hidden sm:block rounded-xl transition-all duration-300">
-                                    <MessageCircle className="h-[18px] w-[18px]" />
-                                </Link>
+
                                 <DropdownMenu>
                                     <DropdownMenuTrigger asChild>
                                         <button className="flex items-center gap-2 p-1 rounded-full hover:bg-white/[0.06] transition-colors">
@@ -117,8 +144,9 @@ export function Navbar() {
                                         </DropdownMenuLabel>
                                         <DropdownMenuSeparator />
                                         <DropdownMenuItem asChild><Link href="/dashboard" className="cursor-pointer"><LayoutDashboard className="mr-2 h-4 w-4" />Dashboard</Link></DropdownMenuItem>
+                                        <DropdownMenuItem asChild><Link href="/dashboard/trips" className="cursor-pointer"><Map className="mr-2 h-4 w-4" />My Trips</Link></DropdownMenuItem>
                                         <DropdownMenuItem asChild><Link href="/dashboard/profile" className="cursor-pointer"><User className="mr-2 h-4 w-4" />Profile</Link></DropdownMenuItem>
-                                        <DropdownMenuItem asChild><Link href="/dashboard/loyalty" className="cursor-pointer"><Gift className="mr-2 h-4 w-4" />Loyalty</Link></DropdownMenuItem>
+                                        <DropdownMenuItem asChild><Link href="/dashboard/loyalty" className="cursor-pointer"><Gift className="mr-2 h-4 w-4" />Loyalty & Rewards</Link></DropdownMenuItem>
                                         <DropdownMenuSeparator />
                                         <DropdownMenuItem className="text-error cursor-pointer" onClick={() => router.post('/logout')}>
                                             <LogOut className="mr-2 h-4 w-4" />Sign out
@@ -146,19 +174,39 @@ export function Navbar() {
                     </div>
                 </div>
 
+                {/* Mobile menu */}
                 {mobileOpen && (
-                    <div className="md:hidden py-3 border-t border-white/[0.06]">
+                    <div className="md:hidden py-4 border-t border-white/[0.06]">
                         <nav className="flex flex-col gap-0.5">
-                            {[
-                                { href: '/search', label: 'Search' },
-                                { href: '/destinations', label: 'Destinations' },
-                                { href: '/blog', label: 'Blog' },
-                                { href: '/chat', label: 'AI Chat' },
-                            ].map((link) => (
-                                <Link key={link.href} href={link.href} className="px-4 py-2.5 text-[14px] font-medium text-white/50 hover:text-white hover:bg-white/[0.06] rounded-lg transition-colors" onClick={() => setMobileOpen(false)}>
+                            {mobileLinks.map((link) => (
+                                <Link
+                                    key={link.href}
+                                    href={link.href}
+                                    className={`flex items-center gap-3 px-4 py-3 text-[15px] font-medium rounded-xl transition-all ${
+                                        isActive(link.href)
+                                            ? 'text-white bg-white/[0.06]'
+                                            : 'text-white/50 hover:text-white hover:bg-white/[0.04]'
+                                    }`}
+                                    onClick={() => setMobileOpen(false)}
+                                >
+                                    {link.icon && <link.icon className="h-4 w-4 text-primary-400/60" />}
                                     {link.label}
                                 </Link>
                             ))}
+
+                            {isAuthenticated && (
+                                <>
+                                    <div className="h-[1px] bg-white/[0.05] my-2" />
+                                    <Link href="/dashboard" className="flex items-center gap-3 px-4 py-3 text-[15px] font-medium text-white/50 hover:text-white hover:bg-white/[0.04] rounded-xl transition-all" onClick={() => setMobileOpen(false)}>
+                                        <LayoutDashboard className="h-4 w-4 text-primary-400/60" />
+                                        Dashboard
+                                    </Link>
+                                    <Link href="/dashboard/trips" className="flex items-center gap-3 px-4 py-3 text-[15px] font-medium text-white/50 hover:text-white hover:bg-white/[0.04] rounded-xl transition-all" onClick={() => setMobileOpen(false)}>
+                                        <Map className="h-4 w-4 text-primary-400/60" />
+                                        My Trips
+                                    </Link>
+                                </>
+                            )}
                         </nav>
                     </div>
                 )}
