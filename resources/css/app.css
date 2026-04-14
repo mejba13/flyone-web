@@ -9,6 +9,7 @@
 @theme {
     /* Fonts */
     --font-display: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+    --font-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
     --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
 
     /* Primary Lilac Scale */
