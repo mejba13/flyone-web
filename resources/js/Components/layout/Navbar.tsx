@@ -9,8 +9,8 @@ import {
 } from '@/Components/ui/dropdown-menu';
 import { getInitials } from '@/Lib/utils';
 import {
-    Plane, Menu, X, Search, Bell, MessageCircle,
-    LayoutDashboard, User, Gift, Settings, LogOut,
+    Plane, Menu, X, Bell, MessageCircle,
+    LayoutDashboard, User, Gift, LogOut,
 } from 'lucide-react';
 
 export function Navbar() {
@@ -18,7 +18,7 @@ export function Navbar() {
     const [mobileOpen, setMobileOpen] = useState(false);
 
     return (
-        <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-lg border-b border-soft-dark/50">
+        <header className="sticky top-0 z-50 bg-white border-b border-[#f2f2f2]">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-16">
                     <div className="flex items-center gap-8">
@@ -26,7 +26,7 @@ export function Navbar() {
                             <div className="w-9 h-9 bg-gradient-to-br from-primary-400 to-primary-600 rounded-xl flex items-center justify-center">
                                 <Plane className="h-5 w-5 text-white" />
                             </div>
-                            <span className="text-xl font-display font-bold text-deep">Flyone</span>
+                            <span className="text-xl font-display font-bold text-[#222]">Flyone</span>
                         </Link>
                         <nav className="hidden md:flex items-center gap-1">
                             {[
@@ -38,7 +38,7 @@ export function Navbar() {
                                 <Link
                                     key={link.href}
                                     href={link.href}
-                                    className="px-3 py-2 text-sm font-medium text-deep-lighter hover:text-deep rounded-lg hover:bg-soft transition-colors"
+                                    className="px-3 py-2 text-sm font-medium text-[#6a6a6a] hover:text-[#222] rounded-lg hover:bg-[#f2f2f2] transition-colors"
                                 >
                                     {link.label}
                                 </Link>
@@ -49,15 +49,15 @@ export function Navbar() {
                     <div className="flex items-center gap-3">
                         {isAuthenticated ? (
                             <>
-                                <Link href="/dashboard/notifications" className="relative p-2 text-deep-lighter hover:text-deep transition-colors">
+                                <Link href="/dashboard/notifications" className="relative p-2 text-[#6a6a6a] hover:text-[#222] transition-colors">
                                     <Bell className="h-5 w-5" />
                                 </Link>
-                                <Link href="/chat" className="p-2 text-deep-lighter hover:text-deep transition-colors hidden sm:block">
+                                <Link href="/chat" className="p-2 text-[#6a6a6a] hover:text-[#222] transition-colors hidden sm:block">
                                     <MessageCircle className="h-5 w-5" />
                                 </Link>
                                 <DropdownMenu>
                                     <DropdownMenuTrigger asChild>
-                                        <button className="flex items-center gap-2 p-1 rounded-full hover:bg-soft transition-colors">
+                                        <button className="flex items-center gap-2 p-1 rounded-full hover:bg-[#f2f2f2] transition-colors">
                                             <Avatar className="h-8 w-8">
                                                 <AvatarImage src={user?.avatar} />
                                                 <AvatarFallback>{getInitials(user?.name || '')}</AvatarFallback>
@@ -67,7 +67,7 @@ export function Navbar() {
                                     <DropdownMenuContent align="end" className="w-56">
                                         <DropdownMenuLabel>
                                             <p className="font-medium">{user?.name}</p>
-                                            <p className="text-xs text-deep-lighter font-normal">{user?.email}</p>
+                                            <p className="text-xs text-[#6a6a6a] font-normal">{user?.email}</p>
                                         </DropdownMenuLabel>
                                         <DropdownMenuSeparator />
                                         <DropdownMenuItem asChild>
@@ -91,17 +91,17 @@ export function Navbar() {
                             </>
                         ) : (
                             <div className="flex items-center gap-2">
-                                <Button variant="ghost" size="sm" asChild>
+                                <Button variant="ghost" size="sm" className="text-[#222] hover:bg-[#f2f2f2]" asChild>
                                     <Link href="/login">Sign in</Link>
                                 </Button>
-                                <Button size="sm" asChild>
+                                <Button size="sm" className="bg-[#222] text-white hover:bg-primary-600 shadow-none rounded-lg" asChild>
                                     <Link href="/register">Get started</Link>
                                 </Button>
                             </div>
                         )}
 
                         <button
-                            className="md:hidden p-2 text-deep-lighter hover:text-deep"
+                            className="md:hidden p-2 text-[#6a6a6a] hover:text-[#222]"
                             onClick={() => setMobileOpen(!mobileOpen)}
                         >
                             {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -110,7 +110,7 @@ export function Navbar() {
                 </div>
 
                 {mobileOpen && (
-                    <div className="md:hidden py-4 border-t border-soft-dark/50">
+                    <div className="md:hidden py-4 border-t border-[#f2f2f2]">
                         <nav className="flex flex-col gap-1">
                             {[
                                 { href: '/search', label: 'Search' },
@@ -121,7 +121,7 @@ export function Navbar() {
                                 <Link
                                     key={link.href}
                                     href={link.href}
-                                    className="px-3 py-2.5 text-sm font-medium text-deep-lighter hover:text-deep rounded-lg hover:bg-soft transition-colors"
+                                    className="px-3 py-2.5 text-sm font-medium text-[#6a6a6a] hover:text-[#222] rounded-lg hover:bg-[#f2f2f2] transition-colors"
                                     onClick={() => setMobileOpen(false)}
                                 >
                                     {link.label}
